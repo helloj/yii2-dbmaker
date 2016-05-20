@@ -1,0 +1,25 @@
+{
+    "name": "helloj/yii2-dbmaker",
+    "description": "DBMaker Driver for Yii2 Framework.",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "extension", "dbmaker", "activerecord"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Jackie Yu",
+            "email": "helloj@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.8"
+    },
+    "require-dev": {
+        "yiisoft/yii2-dev": "2.0.x-dev",
+        "phpunit/phpunit": "~4.5"        
+    },
+    "autoload": {
+        "psr-4": {
+            "helloj\\db\\dbmaker\\": "src"
+        }
+    }
+}
