@@ -158,9 +158,13 @@ class QueryBuilder extends \yii\db\QueryBuilder
             . ' REFERENCES ' . $this->db->quoteTableName($refTable)
             . ' (' . $this->buildColumns($refColumns) . ')';
         if ($delete !== null) {
+            if (!strcasecmp($delete,'RESTRICT'))
+                $delete = 'NO ACTION';
             $sql .= ' ON DELETE ' . $delete;
         }
         if ($update !== null) {
+            if (!strcasecmp($update,'RESTRICT'))
+                $update = 'NO ACTION';
             $sql .= ' ON UPDATE ' . $update;
         }
 
