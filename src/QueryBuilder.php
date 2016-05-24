@@ -269,10 +269,9 @@ class QueryBuilder extends \yii\db\QueryBuilder
 
     /**
      * @inheritdoc
-     * @throws NotSupportedException
      */
     public function selectExists($rawSql)
     {
-        throw new NotSupportedException(__METHOD__ . ' is not supported by DBMaker.');
+        return 'SELECT CASE WHEN CONNECTION_ID IS NOT NULL THEN 1 ELSE 0 END FROM SYSCONINFO WHERE EXISTS (' . $rawSql . ')';
     }
 }
