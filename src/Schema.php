@@ -292,6 +292,7 @@ SQL;
             SELECT FK_NAME,
                    FK_COL_ORDER,
                    RTRIM(PK_TBL_NAME) PK_TBL_NAME,
+                   RTRIM(PK_TBL_OWNER) PK_TBL_OWNER,
                    PK_COL_ORDER
             FROM SYSTEM.SYSFOREIGNKEY
             WHERE FK_TBL_NAME = UPPER(:tableName)
@@ -306,6 +307,7 @@ SQL;
         $constraints = [];
         foreach ($command->queryAll() as $index) {
             $pk_tbl_name = $index['pk_tbl_name'];
+            $pk_tbl_owner = $index['pk_tbl_owner'];
             $name = $index['fk_name'];
             if (!isset($constraints[$name])) {
                 $constraints[$name] = [
@@ -334,7 +336,12 @@ SQL;
                 }
             }
 
-            $pktbl = $this->getTableSchema($pk_tbl_name);
+            if ($table->schemaName == $pk_tbl_owner && $table->name == $pk_tbl_name) {
+                $pktbl = $table;  // avoid infinite recursion
+            } else {
+                $pktbl = $this->getTableSchema($pk_tbl_owner. '.' .$pk_tbl_name);
+            }
+
             foreach ($constraints[$name]['columns'] as $key => $val) {
                 foreach ($pktbl->columns as $column) {
                     if ($column->dbOrder === $val) {
