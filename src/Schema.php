@@ -167,6 +167,7 @@ class Schema extends \yii\db\Schema
             FROM SYSTEM.SYSCOLUMN
             WHERE TABLE_NAME = UPPER(:tableName)
               AND TABLE_OWNER = UPPER(:schemaName)
+              AND RESERVE6 > 0
             ORDER BY COLUMN_ORDER
 SQL;
 
