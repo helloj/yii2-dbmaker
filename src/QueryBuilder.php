@@ -81,7 +81,7 @@ class QueryBuilder extends \yii\db\QueryBuilder
     /**
      * @inheritdoc
      */
-    public function batchInsert($table, $columns, $rows) {
+    public function batchInsert($table, $columns, $rows, &$params = []) {
         throw new NotSupportedException(__METHOD__ . ' is not supported by DBMaker.');
     }
 
